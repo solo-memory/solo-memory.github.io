@@ -1,0 +1,1276 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="什么是消息队列, Blue memory">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>什么是消息队列 | Blue memory</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Blue memory</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Blue memory</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">什么是消息队列</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                                <span class="chip bg-color">分布式</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+                                <span class="chip bg-color">消息队列</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+                                <span class="chip bg-color">微服务</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
+                                分布式
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-12-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-07-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.4k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>整理自儒猿技术窝的《<strong>Java工程师面试突击第一季</strong>》</p>
+<h3 id="1-什么是消息队列"><a href="#1-什么是消息队列" class="headerlink" title="1. 什么是消息队列"></a>1. 什么是消息队列</h3><p>消息（Message）是指在应用之间传送的数据。消息队列(MQ)，是一种应用程序对应用程序的通信方法。</p>
+<h3 id="2-为什么使用消息队列"><a href="#2-为什么使用消息队列" class="headerlink" title="2. 为什么使用消息队列"></a>2. 为什么使用消息队列</h3><h4 id="2-1-解耦"><a href="#2-1-解耦" class="headerlink" title="2.1 解耦"></a>2.1 解耦</h4><ul>
+<li>不用MQ时系统耦合场景</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102244.png" alt="不用MQ时系统耦合场景"></p>
+<ul>
+<li>使用MQ进行解耦后的场景</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102429.png" alt="使用MQ进行解耦后的场景"></p>
+<h4 id="2-2-异步"><a href="#2-2-异步" class="headerlink" title="2.2 异步"></a>2.2 异步</h4><ul>
+<li>不用MQ时的同步高延时场景</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102451.png" alt="不用MQ时的同步高延时场景"></p>
+<ul>
+<li>使用MQ进行异步化的接口性能</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102511.png" alt="使用MQ进行异步化的接口性能"></p>
+<h4 id="2-3-削峰"><a href="#2-3-削峰" class="headerlink" title="2.3 削峰"></a>2.3 削峰</h4><ul>
+<li>没有使用MQ时系统高峰期崩溃场景</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102532.png" alt="没有使用MQ时系统高峰期崩溃场景"></p>
+<ul>
+<li>使用MQ进行削峰场景</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102550.png" alt="使用MQ进行削峰场景"></p>
+<h3 id="3-消息队列存在什么问题吗"><a href="#3-消息队列存在什么问题吗" class="headerlink" title="3. 消息队列存在什么问题吗"></a>3. 消息队列存在什么问题吗</h3><h4 id="3-1-系统可用性降低"><a href="#3-1-系统可用性降低" class="headerlink" title="3.1 系统可用性降低"></a>3.1 系统可用性降低</h4><p>在使用了MQ的系统中，如果MQ挂了那么整个系统就无法正常运转，甚至会崩溃。</p>
+<h4 id="3-2-系统复杂性提高"><a href="#3-2-系统复杂性提高" class="headerlink" title="3.2 系统复杂性提高"></a>3.2 系统复杂性提高</h4><ul>
+<li>重复消费</li>
+<li>消息顺序</li>
+</ul>
+<h4 id="3-3-一致性问题"><a href="#3-3-一致性问题" class="headerlink" title="3.3 一致性问题"></a>3.3 一致性问题</h4><p>A系统发送消息到MQ，B、C、D三个系统进行消费，B、C系统正常消费，但是D系统在消费过程中出现异常导致数据没有新增或修改成功，那么这个时候几个系统的数据不一致，会导致后续的系统操作出现数据及业务问题</p>
+<h3 id="4-常见的消息队列有哪些"><a href="#4-常见的消息队列有哪些" class="headerlink" title="4. 常见的消息队列有哪些"></a>4. 常见的消息队列有哪些</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>ActiveMQ</th>
+<th>RabbitMQ</th>
+<th>RocketMQ</th>
+<th>Kafka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单机吞吐量</td>
+<td>万级，吞吐量比RocketMQ和Kafka要低一个数量级</td>
+<td>万级，吞吐量比RocketMQ和Kafka要低一个数量级</td>
+<td>10万级， 可以支撑高吞吐量</td>
+<td>10万级，高吞吐量。一般配合大数据系统进行实时数据计算、日志采集等场景</td>
+</tr>
+<tr>
+<td>topic数量对吞吐量的影响</td>
+<td></td>
+<td></td>
+<td>topic可以达到几百，几千个的级别，吞吐量会有小幅度的下降。这是RocketMQ的一大优势，在同等机器下，可以支撑大量的topic</td>
+<td>topic从几十个到几百个时，吞吐量会大幅度下降，所以在同等机器下，kafka尽量保证topic数量不要过多。如果要支撑大规模的topic，需要增加更多的机器资源</td>
+</tr>
+<tr>
+<td>时效性</td>
+<td>ms级</td>
+<td>微秒级，这是rabbitmq的一大特点，延迟是最低的</td>
+<td>ms级</td>
+<td>延迟在ms级以内</td>
+</tr>
+<tr>
+<td>可用性</td>
+<td>高，基于主从架构实现高可用</td>
+<td>高，基于主从架构实现高可用</td>
+<td>非常高，分布式架构</td>
+<td>非常高，kafka是分布式的，一个数据多个副本，少数机器宕机不会丢失数据，不会导致不可用</td>
+</tr>
+<tr>
+<td>消息可靠性</td>
+<td>有较低的概率丢失数据</td>
+<td></td>
+<td>经过参数优化配置，可以做到0丢失</td>
+<td>经过参数优化配置，可以做到0丢失</td>
+</tr>
+<tr>
+<td>核心特点</td>
+<td>MQ领域功能及其完备</td>
+<td>基于erlang开发，所以并发能力很强，性能极好，延时低</td>
+<td>MQ功能较为完善，还是分布式的，扩展性好</td>
+<td>功能较为简单，主要支持简单的MQ功能，在大数据领域的实时计算以及日志采集被大规模使用，是事实上的标准</td>
+</tr>
+<tr>
+<td>优劣势</td>
+<td>非常成熟，功能强大，在业内大量的公司以及项目中都有应用。偶尔会有较低概率丢失消息，而且现在社区以及国内应用越来越少，官方社区现在对ActiveMQ5.x维护越来越少，而且确实主要是基于解耦和异步来用的，较少在大规模吞吐的场景中使用</td>
+<td>erlang语言开发，性能及其好，而且开源界面非常棒，用起来很好用，在国内一些互联网公司近几年用rabbitmq也比较多一些。但是问题也是显而易见的，RabbitMQ确实吞吐量会低一些，这是因为他做的实现机制比较重。而且erlang开发，国内有几个公司有实力做erlang源码级别的研究和定制？而且rabbitmq集群动态扩展会很麻烦。主要问题还是erlang语言本身带来的问题，很难读源码，很难定制和掌控</td>
+<td>接口简单易用，而且毕竟在阿里大规模应用过，有阿里品牌保障。日处理消息上百亿之多，可以做到大规模吞吐，性能也非常好，分布式扩展也方便，社区维护还可以，可靠性和可用性都是ok的，还可以支撑大规模的topic数量看，支持复杂MQ业务场景，而且一个很大的优势在于，阿里出品的都是java，我们可以自己阅读源码，可以掌控。社区活跃度较为一般，文档相对简单，然而接口这块不是按照标准JMS规范走的，有的系统要迁移需要修改大量代码。还有阿里出品的技术，你就得做好万一这个技术被抛弃，社区黄掉的风险</td>
+<td>kafka的特点其实很明显，就是仅仅提供较少的核心功能，但是提供超高的吞吐量，ms级的延迟，极高的可用性和可靠性，而且分布式可以任意扩展。同时kafka最好是支撑较少的topic即可，保证其超高吞吐量。而且kafka唯一的一点劣势是有可能消息重复消费，那么对数据准确性会造成极其轻微的影响，这点轻微影响可以忽略。这个特性天然适合大数据实时计算以及日志搜集</td>
+</tr>
+</tbody></table>
+<h3 id="5-如何保证消息队列高可用"><a href="#5-如何保证消息队列高可用" class="headerlink" title="5. 如何保证消息队列高可用"></a>5. 如何保证消息队列高可用</h3><h4 id="5-1-RabbitMQ的高可用性"><a href="#5-1-RabbitMQ的高可用性" class="headerlink" title="5.1 RabbitMQ的高可用性"></a>5.1 RabbitMQ的高可用性</h4><p>RabbitMQ基于主从做高可用。</p>
+<p>RabbitMQ有三种模式：单机模式、普通集群模式、镜像集群模式</p>
+<ul>
+<li>单机模式</li>
+</ul>
+<p>单机模式其实就是demo级别的，一般是用于学习使用，生产环境中不会用单机模式</p>
+<ul>
+<li>普通集群模式</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102615.png" alt="RabbitMQ普通集群"></p>
+<p>意思就是在多台机器上启动多个rabbitmq实例，每个机器启动一个，但是你创建的queue，只会放在一个rabbitmq实例上，但是每个实例都同步queue的元数据。之后你消费的时候，实际上你连接到了另外一个实例，那么那个实例会从queue所在的实例上拉去数据过来。这种方式确实很麻烦，也不怎么好，没做到所谓的分布式，就是个普通集群。因为这导致你要么消费者每次随机连接一个实例拉取数据，要么固定连接那个queue所在实例消费数据，前者有数据拉取的开销，后者导致单实例性能瓶颈。</p>
+<p>而且如果那个放queue的实例宕机了，会导致接下来其它实例就无法从那个实例拉取，如果你开启了消息持久化，让rabbitmq落地存储消息的话，消息不一定会丢，得等那个实例恢复了，然后才能继续从这个queue拉取数据。但是这种方式无法实现高可用，主要是提高吞吐量，也就是让集群中多个节点来服务某个queue的读写操作。</p>
+<ul>
+<li>镜像集群模式</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102727.png" alt="RabbitMQ镜像集群模式"></p>
+<p>这种模式才是rabbitmq的高可用模式，跟普通集群不一样的是，你创建的queue，无论是元数据还是queue里的消息都会存在多个实例上，每次你写消息到queue的时候，都会自动把消息到多个实例的queue里进行同步。</p>
+<p>这种模式的好处在于你任何一个机器宕机都没问题，别的机器都可用。</p>
+<p>而坏处在于：</p>
+<ol>
+<li>因为每次发送消息，都需要把这个消息同步到多个实例上，导致网络带宽压力和消耗很重，这样性能开销太大。</li>
+<li>这种模式没有什么扩展性可言，如果某个queue的负载很重，你加机器，新增的机器也包含了这个queue的所有数据，这样并没有办法线性扩展你的queue</li>
+</ol>
+<p>实现镜像集群的方法：在rabbitmq管理平台中创建一个镜像集群策略，指定要求数据同步到所有节点上或同步到指定数量的节点上。然后你再次创建queue的时候，应用这个策略，就会自动同步到其它节点上</p>
+<h4 id="5-2-Kafka的高可用性"><a href="#5-2-Kafka的高可用性" class="headerlink" title="5.2 Kafka的高可用性"></a>5.2 Kafka的高可用性</h4><p>kafka一个最基本的架构认识：由多个broker组成，每个broker就是一个节点，你创建一个topic，这个topic可以划分为多个partition，每个partition可以存在于不同的broker上，每个partition就放一部分数据。这就是天然的分布式消息队列，就是说一个topic的数据，是分散放在多个机器上的，每个机器就放一部分数据。</p>
+<p>Kafka0.8以前是没有HA（高可用）机制的，就是任何一个broker宕机了，那个broker上的partition就废了，没法写也没法读，没有什么高可用性可言。</p>
+<p>Kafka0.8以后提供了HA机制，就是replice副本机制。每个partition的数据都会同步到其它机器上，形成自己的多个replice副本。然后所有的replice会选举一个leader出来，那么生产和消费都跟这个leader打交道，然后其它replice就是follower。写的时候，leader会负责把所有数据同步到所有follower上，读的时候就直接到leader上读。kafka会均匀的将一个partition的所有replica分布在不同的机器上。</p>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102800.png" alt="kafka高可用"></p>
+<h3 id="6-如何保证消息不被重复消费（幂等性）"><a href="#6-如何保证消息不被重复消费（幂等性）" class="headerlink" title="6. 如何保证消息不被重复消费（幂等性）"></a>6. 如何保证消息不被重复消费（幂等性）</h3><p>什么是重复消费？下面我们以kafka作为例子进行说明</p>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102824.png" alt="kafka重复消费"></p>
+<p>既然知道了什么是重复消费，那么接下来我们就来学习如何保证幂等性。那么，什么是幂等性呢？幂等性，其实就是一个数据或者一个请求，重复来了多次，但是我们得确保对应的数据不会改变，不会出错。这就是幂等性。</p>
+<p>那么，我们如何来保证幂等性呢？</p>
+<p>比如你拿个数据要写库，你先根据主键查一下，如果这数据都有了，你就别插入了，update 一下好吧。（高并发会有问题）</p>
+<p>比如你是写 Redis，那没问题了，反正每次都是 set，天然幂等性。</p>
+<p>比如你不是上面两个场景，那做的稍微复杂一点，你需要让生产者发送每条数据的时候，里面加一个全局唯一的 id，类似订单 id 之类的东西，然后你这里消费到了之后，先根据这个 id 去比如 Redis 里查一下，之前消费过吗？如果没有消费过，你就处理，然后这个 id 写 Redis。如果消费过了，那你就别处理了，保证别重复处理相同的消息即可。</p>
+<p>比如基于数据库的唯一键来保证重复数据不会重复插入多条。因为有唯一键约束了，重复数据插入只会报错，不会导致数据库中出现脏数据。</p>
+<h3 id="7-消息的可靠性传输"><a href="#7-消息的可靠性传输" class="headerlink" title="7. 消息的可靠性传输"></a>7. 消息的可靠性传输</h3><p>消息的可靠性传输，其实就是处理消息丢失的问题。当我们有一些重要的业务用到了mq时，比如用户下单，我们需要异步生成订单、扣除库存并做一些其它操作。但是，如果我们在用户支付完成后异步生成订单，扣除库存时，消息丢失了，那么就会造成用户明明支付完成，但是却没有生成订单，库存也没有扣除。这样就造成了数据错误，造成了很大的损失。</p>
+<h4 id="7-1-Rabbitmq的可靠传输"><a href="#7-1-Rabbitmq的可靠传输" class="headerlink" title="7.1 Rabbitmq的可靠传输"></a>7.1 Rabbitmq的可靠传输</h4><p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102851.png" alt="rabbitmq可能存在的消息丢失问题"></p>
+<p>1）生产者弄丢数据</p>
+<ul>
+<li>事务消息</li>
+</ul>
+<p>此时我们可以使用rabbitmq提供的事务消息，就是生产者在发送数据之前开启rabbitmq事务（channel.txSelect），然后发送消息，如果消息没有被rabbitmq接收到，那么生产者就会收到异常报错，此时就可以回滚事务（channel.txRollback），然后重试发送消息。如果接收到了消息，那么就可以提交事务（channel.txCommit）。但是，事务机制是同步的。生产者发送消息会同步阻塞卡住，等待你是成功还是失败，会导致生产者的吞吐量下降。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channel.txSelect</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="comment">//发送消息</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">  channel.txRollback</span><br><span class="line">  <span class="comment">//再次重试发送消息</span></span><br><span class="line">&#125;</span><br><span class="line">channel.txCommit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>confirm机制</li>
+</ul>
+<p>生产者如果要保证消息不丢，一般是用confirm机制，异步的模式，发送消息之后不会阻塞，可以直接发送下一条，这样它的吞吐量更高。</p>
+<ol>
+<li>把channel设置成confirm模式</li>
+<li>发送一个消息，发送完消息之后我们就不用管了</li>
+<li>rabbitmq如果接收到这条消息到话，就会回调你生产者本地的一个接口，通知你说这条消息我已经接收到了</li>
+<li>rabbitmq如果在接收消息的时候报错了，就会回调你的接口，告诉你这个消息接收失败了，你可以再次重发</li>
+</ol>
+<p>2）rabbitmq弄丢消息</p>
+<p>就是rabbitmq自己弄丢了数据，这个时候我们必须开启rabbitmq的持久化，就是消息写入之后会持久化到磁盘，哪怕是rabbitmq自己挂了，恢复之后会自动读取之前存储的数据，一般数据不会丢。除非极其罕见的是rabbitmq还没持久化，自己就挂了，可能会导致少量数据丢失，这个概率较小。</p>
+<p>设置持久化有两个步骤，第一是创建queue的时候设置为持久化，这样就可以保证rabbitmq持久化queue的元数据，但是不会持久化queue里面的数据。第二个是发送消息的时候将消息的deliveryMode设置为2，就是将消息设置为持久化的，此时rabbitmq就会将消息持久化到磁盘。必须要同时设置这两个持久化才行。</p>
+<p>而且持久化可以跟生产者那边的confirm机制配合起来，只有消息被持久化到磁盘之后，才会通知生产者ack了，所以哪怕是在持久化到磁盘之前，rabbitmq挂了，数据丢了，生产者收不到ack，你也是可以自己重发的。</p>
+<p>不过，哪怕是你给rabbitmq开启了持久化机制，也有一种可能，就是这个消息写入到rabbitmq中，但是还没来得及持久化到磁盘上，结果不巧，此时rabbitmq挂了，就是导致内存中的一点点数据会丢失。</p>
+<p>3）消费者丢失数据</p>
+<p>rabbitmq默认是打开了消费者的autoAck机制。就是在消费者消费到了数据之后，消费者会自动通知rabbitmq说，我已经消费完这条消息了。如果你消费到了一条消息，还在处理中，还没处理完，此时消费者rabbitmq说这条消息已经消费了。此时不巧，消费者宕机了，那条消息就会丢失，还没处理完，而且rabbitmq还以为这条消息已经处理完了。</p>
+<p>那么我们如何解决这个问题呢？我们可以取消autoAck，改为手动Ack，在处理完业务之后，再调用ack方法，告诉rabbitmq我已经把这条消息消费了。</p>
+<h4 id="7-2-Kafka的可靠传输"><a href="#7-2-Kafka的可靠传输" class="headerlink" title="7.2 Kafka的可靠传输"></a>7.2 Kafka的可靠传输</h4><p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102912.png" alt="kafka数据丢失场景"></p>
+<p>1）消费端弄丢了数据</p>
+<p>唯一可能导致消费者丢失数据的情况就是，你消费到了这个消息，然后自动提交了offset，让kafka以为你已经消费好了这个消息，其实你刚准备处理这个消息，你还没处理，你自己就挂了，此时这条消息就丢失了。</p>
+<p>那么我们可以通过关闭自动提交offset，在处理完之后自己手动提交offset来解决这个问题。但是此时可能会出现重复消费的问题，我们只要做好幂等性处理就好了。</p>
+<p>2）kafka弄丢了数据</p>
+<p>leader接收到消息，还没同步到follower时，leader挂了，此时通过选举将其中一个follower变成了leader，此时就出现了数据丢失的情况。</p>
+<p>所以，我们一般要求起码设置如下4个参数：</p>
+<ol>
+<li>给topic设置replicasion.factor参数，这个值必须大于1，要求每个partition必须要有2个副本</li>
+<li>在kafka服务端设置min.insync.replicas参数：这个值必须大于1，这个是要求一个leader至少感知到有至少一个follower还跟自己保持联系，没掉队，这样才能确保leader挂了还有一个follower</li>
+<li>在producer端设置acks=all：这是要求每条数据，必须是写入所有replica之后，才能认为是写成功了</li>
+<li>在producer端设置retries=MAX（很大很大的一个值，无限次重试）：这个是要求一旦写入失败，就无限重试，卡在这里了</li>
+</ol>
+<p>3）生产者会不会丢失数据</p>
+<p>按照上面的思路设置了acks=all，那么一定不会丢，要求是你的leader接收到消息，所有的follower都同步到消息之后，才认为本次写成功了。如果没有满足这个条件，生产者会不断的重试，重试无限次。</p>
+<h3 id="8-顺序消费"><a href="#8-顺序消费" class="headerlink" title="8. 顺序消费"></a>8. 顺序消费</h3><p>如何保证消息的顺序性？比如我们使用mysql binlog来同步数据到另一个mysql。我们在mysql中增改删一条数据，对应出3条binlog，接着这三条binlog发送到MQ中，消费中依次执行。这个时候我们就得保证它的顺序性，不然本来是增加、修改、删除，变成了删除、修改、增加，这个时候数据就错乱了。</p>
+<p>我们来看一下顺序会错乱的场景：</p>
+<p>1）rabbitmq：一个queue，多个consumer</p>
+<p>下面是rabbitmq可能出现的顺序错乱的场景：</p>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702103614.png" alt="rabbitmq顺序不对的场景"></p>
+<p>那么我们如何保证顺序消费呢？</p>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702102949.png" alt="rabbitmq如何保证消息顺序消费"></p>
+<p>2）kafka：一个topic，一个partition，一个consumer，内部多线程</p>
+<p>可能会出现顺序错乱场景：</p>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702103035.png" alt="kafka顺序错乱场景"></p>
+<p>解决方案：</p>
+<p>我们可以使用内存队列使用key来做hash分发</p>
+<p><img src="https://raw.githubusercontent.com/solo-memory/image/main/blog/20210702103055.png" alt="kafka保证消息的顺序性"></p>
+<h3 id="9-如何处理消息积压"><a href="#9-如何处理消息积压" class="headerlink" title="9.如何处理消息积压"></a>9.如何处理消息积压</h3><ul>
+<li>普通积压</li>
+</ul>
+<p>比如我们线上环境的消费者出现问题，导致它不会进行消费了，从而是消息积压了几百万或者几千万的消息，这个时候我们如何来处理这种情况？一般这个时候，只能操作临时扩容了，具体操作步骤和思路如下：<br>1）先修复consumer的问题，确保恢复其消费速度，然后将现有consumer停掉</p>
+<p>2）新建一个topic，临时建立好原先10倍或者20倍的queue数量</p>
+<p>3）写一个临时的分发数据的consumer程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立的10倍数量的queue</p>
+<p>4）接着临时征用10倍的机器来部署consumer，每一批consumer消费一个临时queue的数据</p>
+<p>5）这种做法相当于是临时将queue资源和consumer资源扩大10倍，以正常的10倍速度来消费数据</p>
+<p>6）等快速消费完积压数据之后，恢复原线部署架构，重新用原先的consumer机器来消费数据</p>
+<ul>
+<li>积压数据丢失</li>
+</ul>
+<p>还有一种情况，就是我们使用rabbitmq，rabbitmq是可以设置过期时间的，就是TTL，如果消息在queue中积压超过一定的时间就会被rabbitmq清理掉，这个时候数据就没了。</p>
+<p>这种情况我们采取一个方案，就是批量重导。就是当晚上用户都睡觉了都时候，我们写一个临时程序，将丢失的数据一点一点查出来，然后重新灌入mq中，将丢失的数据补回来</p>
+<ul>
+<li>积压过多</li>
+</ul>
+<p>当消息积压到mq的磁盘空间都满了，我们如何处理呢？</p>
+<p>这个时候是没有方法处理的，我们只能通过上述的第一个方案，临时建立consumer快速消费来解决，消费一个丢弃一个。</p>
+<h3 id="10-如何设计一个消息队列中间件"><a href="#10-如何设计一个消息队列中间件" class="headerlink" title="10. 如何设计一个消息队列中间件"></a>10. 如何设计一个消息队列中间件</h3><p>设计一个消息队列中间件，需要从以下几个角度进行分析：</p>
+<ul>
+<li>可伸缩性</li>
+</ul>
+<p>可伸缩性就是在需要的时候可以快速扩容，可以增加吞吐量和容量。其实就是设计一个分布式系统，我们可以参照kafka的设计理念，broker-&gt;topic-&gt;partition，每个partition放一个机器，就存一部分数据，如果资源不够了，就给topic增加partition，然后做数据迁移，增加机器。这样就可以存放更多数据，提供更高的吞吐量了</p>
+<ul>
+<li>持久化</li>
+</ul>
+<p>我们还得考虑mq的数据是否要落地到磁盘。这个我们肯定是要落地到磁盘的，落磁盘才能保证进程挂了数据不会丢。那落磁盘的时候怎么落？顺序写，这样就没有磁盘随机读写的寻址开销，磁盘顺序读写的性能是很高的。这就是kafka的思路。</p>
+<ul>
+<li>可用性</li>
+</ul>
+<p>消息中间件同时还得考虑高可用，这个我们可以参考kafka的高可用保障机制。多副本-&gt;leader &amp; follower -&gt; broker挂了重新选举leader对外服务</p>
+<ul>
+<li>零丢失</li>
+</ul>
+<p>参考kafka或者rabbitmq数据零丢失方案</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Blue memory</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://solo-memory.github.io/2019/122355458.html">https://solo-memory.github.io/2019/122355458.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Blue memory</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                                    <span class="chip bg-color">分布式</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+                                    <span class="chip bg-color">消息队列</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+                                    <span class="chip bg-color">微服务</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/122355458.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="什么是消息队列">
+                        
+                        <span class="card-title">什么是消息队列</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
+                                    分布式
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                        <span class="chip bg-color">分布式</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">消息队列</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+                        <span class="chip bg-color">微服务</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/101042622.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="认识SpringCloud">
+                        
+                        <span class="card-title">认识SpringCloud</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SpringCloud/" class="post-category">
+                                    SpringCloud
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                        <span class="chip bg-color">分布式</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+                        <span class="chip bg-color">微服务</span>
+                    </a>
+                    
+                    <a href="/tags/SpringCloud/">
+                        <span class="chip bg-color">SpringCloud</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">Blue memory</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">21.7k</span>&nbsp;字
+            
+            
+            
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/solo-memory" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
